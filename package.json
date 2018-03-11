@@ -1,0 +1,11 @@
+{
+  "name": "3_express-vue-blog",
+  "version": "1.0.0",
+  "description": "\u0016A Vue.js / Express.js  Blog",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Zibinalarisa@gmail.com",
+  "license": "ISC"
+}
