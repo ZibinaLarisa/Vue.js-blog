@@ -1,3 +1,6 @@
-client/node_modules/
 server/node_modules/
+vue-blog/node_modules/
+
+vue-blog/test/unit/coverage
+vue-blog/test/e2e/reports 
 
