@@ -15,6 +15,8 @@
       v-model="password"
       >
     <br>
+    <div class="error" v-html="error"></div>
+    <br>
     <button
       @click="register">
       Register
@@ -29,22 +31,31 @@ export default {
   data () {
     return {
       email: 'test@gmail',
-      password: '123'
+      password: '123',
+      error: null
     }
   },
-  /* eslint-disable */
   methods: {
     async register () {
-      const response = await Authentication.register({
-        email: this.email,
-        password: this.password
-      })
-      console.log('response')
+      try {
+        const response = await Authentication.register({
+          email: this.email,
+          password: this.password
+        })
+        console.log(response)
+      } catch (error) {
+        this.error = error.response.data.error
+        console.log(this.error)
+      }
     }
   }
 }
 </script>
 
 <style scoped>
+
+.error {
+  color: red
+}
 
 </style>
