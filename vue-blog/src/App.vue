@@ -1,7 +1,10 @@
 <template>
   <div id="app">
-   <!--  <img src="./assets/logo.png"> -->
-    <router-view/>
+    <v-app id="inspire">
+      <v-container fluid fill-height>   
+        <router-view/>
+      </v-container>
+    </v-app>
   </div>
 </template>
 
