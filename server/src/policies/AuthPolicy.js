@@ -4,7 +4,7 @@ module.exports = {
   register (req, res, next) {
     const schema = {
       email: Joi.string().email(),
-      passwors: Joi.string().regex(
+      password: Joi.string().regex(
         new RegExp('^[a-zA-Z0-9]{8,32}$')
       )
     }

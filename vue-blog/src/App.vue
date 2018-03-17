@@ -1,16 +1,24 @@
 <template>
   <div id="app">
     <v-app id="inspire">
-      <v-container fluid fill-height>   
-        <router-view/>
-      </v-container>
+      <page-header />
+      <main>
+        <v-container fluid fill-height>
+          <router-view></router-view>
+        </v-container>
+      </main>
     </v-app>
   </div>
 </template>
 
 <script>
+import PageHeader from '@/components/Header.vue'
+
 export default {
-  name: 'App'
+  name: 'app',
+  components: {
+    PageHeader
+  }
 }
 </script>
 

@@ -3,7 +3,7 @@
     <v-flex xs6 offset-xs3>
        <v-card class="elevation-12">
         <v-toolbar dark color="primary">
-          <v-toolbar-title>Register</v-toolbar-title>
+          <v-toolbar-title>Login</v-toolbar-title>
         </v-toolbar>
         <v-card-text>
             <v-form>
@@ -31,8 +31,8 @@
             <v-spacer></v-spacer>
             <v-btn
               color="primary"
-              @click="register">
-              Register
+              @click="login">
+              Login
              </v-btn>
           </v-card-actions>
       </v-card>
@@ -52,9 +52,9 @@ export default {
     }
   },
   methods: {
-    async register () {
+    async login () {
       try {
-        const response = await Authentication.register({
+        const response = await Authentication.login({
           email: this.email,
           password: this.password
         })
