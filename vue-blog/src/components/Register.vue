@@ -16,10 +16,11 @@
               </v-text-field>
               <br>
               <v-text-field
-                type="text"
+                type="password"
                 name="password"
                 label="password"
                 v-model="password"
+                autocomplete="new-password"
                 >
               </v-text-field>
               <br>
@@ -59,6 +60,8 @@ export default {
           password: this.password
         })
         console.log(response.data)
+        this.$store.dispatch('setToken', response.data.token)
+        this.$store.dispatch('setUser', response.data.user)
       } catch (error) {
         this.error = error.response.data.error
         console.log(this.error)

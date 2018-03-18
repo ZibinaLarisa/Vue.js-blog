@@ -31,17 +31,18 @@ module.exports = {
           email: email
         }
       })
+      console.log(user, email)
       if (!user) {
         return res.status(403).send({
           error: 'The login information was incorrect'
         })
       }
 
-      const isPasValid = password === user.password
-      console.log(password, user.password)
+      const isPasValid = await user.comparePassword(password)
+      console.log(isPasValid, email)
       if (!isPasValid) {
         return res.status(403).send({
-          error: 'The login information was incorrect'
+          error: 'The password is wrong'
         })
       }
 
