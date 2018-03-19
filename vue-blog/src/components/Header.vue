@@ -1,25 +1,22 @@
 <template>
    <v-toolbar fixed dark color="primary">
-    <!-- <v-toolbar-side-icon></v-toolbar-side-icon> -->
     <v-toolbar-title class="white--text">Vue Blog</v-toolbar-title>
     <v-spacer></v-spacer>
     <v-btn flat dark
+      v-if="!UserLoggedIn"
       @click="goTo({name: 'login'})">
         Log in
     </v-btn>
     <v-btn flat dark
+      v-if="!UserLoggedIn"
       @click="goTo({name: 'register'})">
         Sign up
     </v-btn>
-    <!-- <v-btn icon>
-      <v-icon>apps</v-icon>
+    <v-btn flat dark
+      v-if="UserLoggedIn"
+      @click="logout">
+        Log Out
     </v-btn>
-    <v-btn icon>
-      <v-icon>refresh</v-icon>
-    </v-btn>
-    <v-btn icon>
-      <v-icon>more_vert</v-icon>
-    </v-btn> -->
   </v-toolbar>
 </template>
 
@@ -27,13 +24,25 @@
 
 export default {
 
+  computed: {
+    UserLoggedIn: function () {
+      return this.$store.state.isUserLoggedIn
+    }
+  },
+
   methods: {
+    logout () {
+      this.$store.dispatch('setUser', null)
+      this.$store.dispatch('setToken', null)
+      this.$router.push({name: 'main'})
+    },
+
     goTo (route) {
       this.$router.push(route)
     }
   }
-
 }
+
 </script>
 
 <style scoped>
