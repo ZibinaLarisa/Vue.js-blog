@@ -1,18 +1,15 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Blog from '@/components/Blog'
+import Posts from '@/components/Posts'
+import Post from '@/components/Post'
 import Register from '@/components/Register'
 import Login from '@/components/Login'
+import AddPost from '@/components/AddPost'
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
-    {
-      path: '/',
-      name: 'main',
-      component: Blog
-    },
     {
       path: '/register',
       name: 'register',
@@ -22,6 +19,21 @@ export default new Router({
       path: '/login',
       name: 'login',
       component: Login
+    },
+    {
+      path: '/posts',
+      name: 'posts',
+      component: Posts
+    },
+    {
+      path: '/posts/:postId',
+      name: 'post',
+      component: Post
+    },
+    {
+      path: '/posts/add',
+      name: 'addPost',
+      component: AddPost
     }
   ]
 })

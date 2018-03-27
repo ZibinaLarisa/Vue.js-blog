@@ -1,6 +1,10 @@
 <template>
-   <v-toolbar fixed dark color="primary">
+   <v-toolbar fixed dark color="indigo darken-1">
     <v-toolbar-title class="white--text">Vue Blog</v-toolbar-title>
+    <v-btn flat dark
+      @click="goTo({name: 'addPost'})">
+        Add Post
+    </v-btn>
     <v-spacer></v-spacer>
     <v-btn flat dark
       v-if="!UserLoggedIn"

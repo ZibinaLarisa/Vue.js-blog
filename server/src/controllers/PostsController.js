@@ -1,0 +1,41 @@
+const {Post} = require('../models')
+
+module.exports = {
+  async getPosts (req, res) {
+    try {
+      const posts = await Post.findAll({
+        limit: 10
+      })
+      res.send(posts)
+      console.log(posts)
+    } catch (err) {
+      res.status(500).send({
+        error: 'An error has occured trying to fetch the posts'
+      })
+    }
+  },
+  async showPost (req, res) {
+    try {
+      const post = await Post.findById(req.params.postId)
+      res.send(post)
+      console.log(post)
+    } catch (err) {
+      res.status(500).send({
+        error: 'An error has occured trying to show the post'
+      })
+    }
+  },
+  async post (req, res) {
+    try {
+      // console.log(req.body, 'req.body')
+      const post = await Post.create(req.body)
+      // console.log(post, 'post')
+      res.send(post)
+      // console.log('req.body')
+    } catch (err) {
+      res.status(500).send({
+        error: 'An error has occured trying to create a post'
+      })
+    }
+  }
+}

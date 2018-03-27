@@ -12,7 +12,7 @@ app.use(bodyParser.json())
 app.use(cors())
 
 require('./routes')(app)
-// use {force: false} as a parameter to clear database
+// use {force: true} as a parameter to clear database - drop the tables
 sequelize.sync()
   .then(() => {
     app.listen(config.port)
