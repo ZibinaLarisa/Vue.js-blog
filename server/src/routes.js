@@ -19,4 +19,7 @@ module.exports = (app) => {
 
   app.get('/posts/:postId',
     PostsController.showPost)
+
+  app.put('/posts/:postId',
+    PostsController.put)
 }

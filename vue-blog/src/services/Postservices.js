@@ -9,5 +9,8 @@ export default {
   },
   showPost (postId) {
     return Api().get(`posts/${postId}`)
+  },
+  put (post) {
+    return Api().put(`posts/${post.id}`, post)
   }
 }

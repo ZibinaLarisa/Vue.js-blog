@@ -27,14 +27,25 @@ module.exports = {
   },
   async post (req, res) {
     try {
-      // console.log(req.body, 'req.body')
       const post = await Post.create(req.body)
-      // console.log(post, 'post')
       res.send(post)
-      // console.log('req.body')
     } catch (err) {
       res.status(500).send({
         error: 'An error has occured trying to create a post'
+      })
+    }
+  },
+  async put (req, res) {
+    try {
+      await Post.update(req.body, {
+        where: {
+          id: req.params.postId
+        }
+      })
+      res.send(req.body)
+    } catch (err) {
+      res.status(500).send({
+        error: 'An error has occured trying to update a post'
       })
     }
   }

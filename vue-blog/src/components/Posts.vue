@@ -16,13 +16,24 @@
         </v-card-media>
         <v-card-title>
           <div>
-            <span class="grey--text">
+            <span class="post-author">
             {{postAuthor}} - {{post.updatedAt}}
             </span><br>
-            <span>{{post.content}}</span><br>
+            <p class="post-text">{{post.content | truncate}}
+             <span class="post-more"
+               @click="goTo({
+                name: 'post',
+                params: {
+                  postId: post.id
+                  }
+                })">
+                {{readmore}}
+            </span>
+          </p>
+          <br>
           </div>
         </v-card-title>
-        <v-card-actions>
+          <div>
           <v-btn
            flat
            color="orange"
@@ -34,7 +45,16 @@
             })">
             Explore
           </v-btn>
-        </v-card-actions>
+          <v-btn color="indigo darken-1" fab dark small
+              @click="goTo({
+              name: 'editPost',
+              params: {
+                postId: post.id
+                }
+              })">
+              <v-icon>edit</v-icon>
+            </v-btn>
+          </div>
       </v-card>
     </v-flex>
   </v-layout>
@@ -52,13 +72,22 @@ export default {
   data () {
     return {
       posts: null,
-      postAuthor: 'test@'
+      postAuthor: 'test@',
+      readmore: 'READ MORE'
     }
   },
 
   async mounted () {
     this.posts = (await PostService.getPosts()).data
     console.log(this.posts, 'posts')
+  },
+
+  filters: {
+    truncate: function (value) {
+      if (!value) return ''
+      value = value.toString()
+      return value.split(' ').splice(0, 30).join(' ') + ' ...'
+    }
   },
 
   methods: {
@@ -80,6 +109,9 @@ export default {
 .post-title {
   font-size: 30px;
 }
+.card__title {
+  padding-bottom: 0px;
+}
 .post-image {
   width: 70%;
   margin: 0 auto;
@@ -90,6 +122,22 @@ export default {
 }
 .headline:hover {
   color: #26C6DA;
+}
+.post-text {
+  font-size: 16px;
+  margin-bottom: 0px
+}
+.post-author {
+  color: orange;
+  text-align: center;
+  font-size: 16px;
+}
+.post-more {
+  color: orange;
+}
+.post-more:hover {
+  color: #26C6DA;
+  cursor: pointer;
 }
 
 </style>

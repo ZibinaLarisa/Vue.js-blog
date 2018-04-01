@@ -5,6 +5,7 @@ import Post from '@/components/Post'
 import Register from '@/components/Register'
 import Login from '@/components/Login'
 import AddPost from '@/components/AddPost'
+import EditPost from '@/components/EditPost'
 
 Vue.use(Router)
 
@@ -34,6 +35,11 @@ export default new Router({
       path: '/posts/add',
       name: 'addPost',
       component: AddPost
+    },
+    {
+      path: '/posts/:postId/edit',
+      name: 'editPost',
+      component: EditPost
     }
   ]
 })

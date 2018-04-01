@@ -1,6 +1,11 @@
 <template>
    <v-toolbar fixed dark color="indigo darken-1">
-    <v-toolbar-title class="white--text">Vue Blog</v-toolbar-title>
+    <v-toolbar-title class="white--text">
+      <v-btn flat dark
+        @click="goTo({name: 'posts'})">
+          Vue Blog
+      </v-btn>
+    </v-toolbar-title>
     <v-btn flat dark
       @click="goTo({name: 'addPost'})">
         Add Post

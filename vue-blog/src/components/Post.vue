@@ -1,7 +1,7 @@
 <template>
   <v-layout align-center justify-center>
       <v-flex xs12 sm6>
-        <v-card class="post">          
+        <v-card class="post">
           <v-container fill-height fluid>
             <span class="headline">{{post.title}}</span>
           </v-container>
@@ -13,11 +13,11 @@
           </v-card-media>
           <v-card-title>
             <div>
-              <span class="grey--text">              
+              <span class="grey--text">
               </span><br>
               <span>{{post.content}}</span><br>
             </div>
-          </v-card-title>         
+          </v-card-title>
         </v-card>
       </v-flex>
     </v-layout>
