@@ -1,4 +1,5 @@
-const {User} = require('../models')
+// const {User} = require('../models')
+const User = require('../models/User')
 const jwt = require('jsonwebtoken')
 const config = require('../config/config')
 
@@ -26,20 +27,15 @@ module.exports = {
   async login (req, res) {
     try {
       const {email, password} = req.body
-      const user = await User.findOne({
-        where: {
-          email: email
-        }
-      })
+      const user = await User.findOne({email: email})
       console.log(user, email)
       if (!user) {
         return res.status(403).send({
           error: 'The login information was incorrect'
         })
       }
-
       const isPasValid = await user.comparePassword(password)
-      console.log(isPasValid, email)
+      console.log(isPasValid, email, password)
       if (!isPasValid) {
         return res.status(403).send({
           error: 'The password is wrong'

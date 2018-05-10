@@ -7,6 +7,7 @@
       </v-btn>
     </v-toolbar-title>
     <v-btn flat dark
+      v-if="UserLoggedIn"
       @click="goTo({name: 'addPost'})">
         Add Post
     </v-btn>
@@ -43,7 +44,7 @@ export default {
     logout () {
       this.$store.dispatch('setUser', null)
       this.$store.dispatch('setToken', null)
-      this.$router.push({name: 'main'})
+      this.$router.push({name: 'posts'})
     },
 
     goTo (route) {

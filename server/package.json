@@ -19,6 +19,8 @@
     "express": "^4.16.2",
     "joi": "^13.1.2",
     "jsonwebtoken": "^8.2.0",
+    "mongodb": "^3.0.7",
+    "mongoose": "^5.0.14",
     "morgan": "^1.9.0",
     "nodemon": "^1.17.1",
     "sequelize": "^4.36.0",

@@ -51,6 +51,7 @@ export default {
   data () {
     return {
       post: {
+        author: null,
         title: null,
         content: null,
         category: null,
@@ -60,9 +61,15 @@ export default {
     }
   },
 
+  mounted () {
+    this.post.author = this.$store.state.user.email
+    console.log(this.post.author)
+  },
+
   methods: {
     async addPost () {
       try {
+        console.log(this.post.author)
         await PostService.addPost(this.post)
         this.$router.push({name: 'posts'})
       } catch (err) {
@@ -70,7 +77,6 @@ export default {
       }
     }
   }
-
 }
 
 </script>

@@ -10,7 +10,11 @@ export default {
   showPost (postId) {
     return Api().get(`posts/${postId}`)
   },
+  // update a post
   put (post) {
-    return Api().put(`posts/${post.id}`, post)
+    return Api().put(`posts/${post._id}`, post)
+  },
+  deletePost (postId) {
+    return Api().delete(`posts/${postId}`)
   }
 }

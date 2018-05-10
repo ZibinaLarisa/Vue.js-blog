@@ -22,4 +22,7 @@ module.exports = (app) => {
 
   app.put('/posts/:postId',
     PostsController.put)
+
+  app.delete('/posts/:postId',
+    PostsController.delete)
 }

@@ -6,8 +6,11 @@
         v-for="post in posts"
         :key="post.id">
         <v-container fill-height fluid>
-          <span class="headline">{{post.title}}</span>
+          <span class="headline">{{post.title}}</span>       
         </v-container>
+        <span class="post-author">
+              {{post.author}} - {{post.updatedAt}}
+        </span><br>
         <v-card-media
           class="white--text"
           height="200px"
@@ -15,47 +18,37 @@
         >
         </v-card-media>
         <v-card-title>
-          <div>
-            <span class="post-author">
-            {{postAuthor}} - {{post.updatedAt}}
-            </span><br>
+          <div>            
             <p class="post-text">{{post.content | truncate}}
              <span class="post-more"
                @click="goTo({
                 name: 'post',
                 params: {
-                  postId: post.id
+                  postId: post._id
                   }
                 })">
-                {{readmore}}
+                READ MORE
             </span>
           </p>
           <br>
-          </div>
+          </div>          
         </v-card-title>
-          <div>
-          <v-btn
-           flat
-           color="orange"
-           @click="goTo({
-            name: 'post',
-            params: {
-              postId: post.id
-              }
-            })">
-            Explore
-          </v-btn>
-          <v-btn color="indigo darken-1" fab dark small
+          <div>            
+            <v-btn color="indigo darken-1" fab dark small
               @click="goTo({
-              name: 'editPost',
+              name: 'post',
               params: {
-                postId: post.id
+                postId: post._id
                 }
               })">
               <v-icon>edit</v-icon>
             </v-btn>
+            <v-btn color="orange" fab dark small
+              @click="deletePost(post._id)">
+              <v-icon>delete</v-icon>
+            </v-btn>
           </div>
-      </v-card>
+        </v-card>
     </v-flex>
   </v-layout>
 </template>
@@ -71,15 +64,35 @@ export default {
 
   data () {
     return {
-      posts: null,
-      postAuthor: 'test@',
-      readmore: 'READ MORE'
+      posts: [],
+      postAuthor: null
     }
   },
 
-  async mounted () {
-    this.posts = (await PostService.getPosts()).data
-    console.log(this.posts, 'posts')
+  mounted () {
+    this.getPosts()
+  },
+
+  computed: {
+    getpostAuthor: function () {
+      return this.$store.getters.getEmail
+    }
+  },
+
+  methods: {
+    async getPosts () {
+      const response = await PostService.getPosts()
+      this.posts = response.data
+      console.log(this.posts, 'posts')
+    },
+    async deletePost (id) {
+      await PostService.deletePost(id)
+      console.log(id)
+      this.getPosts()
+    },
+    goTo (route) {
+      this.$router.push(route)
+    }
   },
 
   filters: {
@@ -87,13 +100,6 @@ export default {
       if (!value) return ''
       value = value.toString()
       return value.split(' ').splice(0, 30).join(' ') + ' ...'
-    }
-  },
-
-  methods: {
-
-    goTo (route) {
-      this.$router.push(route)
     }
   }
 }
@@ -119,6 +125,7 @@ export default {
 .headline {
   color: #3949AB;
   font-size: 24px;
+  padding: 5px;
 }
 .headline:hover {
   color: #26C6DA;

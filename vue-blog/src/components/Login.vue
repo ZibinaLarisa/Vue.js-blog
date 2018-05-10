@@ -59,7 +59,7 @@ export default {
         console.log(response.data)
         this.$store.dispatch('setToken', response.data.token)
         this.$store.dispatch('setUser', response.data.user)
-        this.$router.push({name: 'root'})
+        this.$router.push({name: 'posts'})
       } catch (error) {
         this.error = error.response.data.error
         console.log(this.error)
