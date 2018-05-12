@@ -6,10 +6,10 @@
         v-for="post in posts"
         :key="post.id">
         <v-container fill-height fluid>
-          <span class="headline">{{post.title}}</span>       
+          <span class="headline">{{post.title}}</span>
         </v-container>
         <span class="post-author">
-              {{post.author}} - {{post.updatedAt}}
+            by  {{post.author}} - {{post.updatedAt | transformDate }}
         </span><br>
         <v-card-media
           class="white--text"
@@ -18,7 +18,7 @@
         >
         </v-card-media>
         <v-card-title>
-          <div>            
+          <div>
             <p class="post-text">{{post.content | truncate}}
              <span class="post-more"
                @click="goTo({
@@ -31,12 +31,12 @@
             </span>
           </p>
           <br>
-          </div>          
+          </div>
         </v-card-title>
-          <div>            
+          <div>
             <v-btn color="indigo darken-1" fab dark small
               @click="goTo({
-              name: 'post',
+              name: 'editPost',
               params: {
                 postId: post._id
                 }
@@ -100,6 +100,10 @@ export default {
       if (!value) return ''
       value = value.toString()
       return value.split(' ').splice(0, 30).join(' ') + ' ...'
+    },
+    transformDate: function (date) {
+      if (!date) return ''
+      return new Date(date).toString().split(' ').slice(0, 4).join(' ').replace(/( \d+)$/, ',$1')
     }
   }
 }
@@ -108,24 +112,22 @@ export default {
 
 <style scoped>
 .post {
-  padding: 20px;
-  height: 400px;
+  padding: 5px 20px;
+  min-height: 400px;
   overflow: hidden;
-}
-.post-title {
-  font-size: 30px;
+  border-bottom: 1px solid grey;
 }
 .card__title {
-  padding-bottom: 0px;
+  padding: 10px 0px 0px 0px;
 }
 .post-image {
   width: 70%;
   margin: 0 auto;
+  padding-top: 20px;
 }
 .headline {
   color: #3949AB;
   font-size: 24px;
-  padding: 5px;
 }
 .headline:hover {
   color: #26C6DA;
@@ -135,7 +137,7 @@ export default {
   margin-bottom: 0px
 }
 .post-author {
-  color: orange;
+  color: #2a3744;  
   text-align: center;
   font-size: 16px;
 }
@@ -145,6 +147,9 @@ export default {
 .post-more:hover {
   color: #26C6DA;
   cursor: pointer;
+}
+.container.fill-height {
+  padding-left: 0
 }
 
 </style>
