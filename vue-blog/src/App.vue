@@ -34,4 +34,33 @@ export default {
 .danger-alert {
   color: red;
 }
+.card__title {
+  padding: 10px 0px 0px 0px;
+}
+.container.fill-height {
+  padding-left: 0
+}
+.post {
+  padding: 5px 20px;
+  min-height: 400px;
+  overflow: hidden;
+  border-bottom: 1px solid grey;
+}
+.post-author {
+  color: #2a3744;  
+  text-align: center;
+  font-size: 16px; 
+}
+.post-text {
+  font-size: 16px;
+  margin-bottom: 0px
+}
+.headline {
+  color: #3949AB;
+  font-size: 24px;
+}
+.headline:hover {
+  color: #26C6DA;
+}
+
 </style>

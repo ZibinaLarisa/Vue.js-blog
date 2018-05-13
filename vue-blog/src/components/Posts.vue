@@ -9,17 +9,17 @@
           <span class="headline">{{post.title}}</span>
         </v-container>
         <span class="post-author">
-            by  {{post.author}} - {{post.updatedAt | transformDate }}
+            by  {{ transformEmail(post.author) }} - {{ transformDate(post.updatedAt) }}
         </span><br>
         <v-card-media
           class="white--text"
-          height="200px"
+          height="250px"
           :src="post.imageUrl"
         >
         </v-card-media>
         <v-card-title>
           <div>
-            <p class="post-text">{{post.content | truncate}}
+            <p class="post-text">{{ truncate(post.content) }}
              <span class="post-more"
                @click="goTo({
                 name: 'post',
@@ -33,7 +33,8 @@
           <br>
           </div>
         </v-card-title>
-          <div>
+          <div
+            v-if="UserLoggedIn">
             <v-btn color="indigo darken-1" fab dark small
               @click="goTo({
               name: 'editPost',
@@ -56,6 +57,7 @@
 <script>
 import Panel from '@/components/Panel'
 import PostService from '@/services/Postservices'
+import { transformDate, truncate, transformEmail } from '../helpers'
 
 export default {
   components: {
@@ -74,12 +76,15 @@ export default {
   },
 
   computed: {
-    getpostAuthor: function () {
-      return this.$store.getters.getEmail
+    UserLoggedIn: function () {
+      return this.$store.state.isUserLoggedIn
     }
   },
 
   methods: {
+    truncate,
+    transformDate,
+    transformEmail,
     async getPosts () {
       const response = await PostService.getPosts()
       this.posts = response.data
@@ -93,53 +98,15 @@ export default {
     goTo (route) {
       this.$router.push(route)
     }
-  },
-
-  filters: {
-    truncate: function (value) {
-      if (!value) return ''
-      value = value.toString()
-      return value.split(' ').splice(0, 30).join(' ') + ' ...'
-    },
-    transformDate: function (date) {
-      if (!date) return ''
-      return new Date(date).toString().split(' ').slice(0, 4).join(' ').replace(/( \d+)$/, ',$1')
-    }
   }
 }
-
 </script>
 
 <style scoped>
-.post {
-  padding: 5px 20px;
-  min-height: 400px;
-  overflow: hidden;
-  border-bottom: 1px solid grey;
-}
-.card__title {
-  padding: 10px 0px 0px 0px;
-}
 .post-image {
   width: 70%;
   margin: 0 auto;
   padding-top: 20px;
-}
-.headline {
-  color: #3949AB;
-  font-size: 24px;
-}
-.headline:hover {
-  color: #26C6DA;
-}
-.post-text {
-  font-size: 16px;
-  margin-bottom: 0px
-}
-.post-author {
-  color: #2a3744;  
-  text-align: center;
-  font-size: 16px;
 }
 .post-more {
   color: orange;
@@ -148,8 +115,4 @@ export default {
   color: #26C6DA;
   cursor: pointer;
 }
-.container.fill-height {
-  padding-left: 0
-}
-
 </style>
